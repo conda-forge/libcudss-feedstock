@@ -23,7 +23,7 @@ source:
   sha256: d0801e78eab1be1240198e292bc496bb1804f2068975aaaf80ba31c3e400c625  # [win64   and (cuda_compiler_version or "").startswith("12")]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [(cuda_compiler_version in (None, "None", "11.8")) or (not (linux64 or aarch64 or win64))]
   script:  # [win]
     - md -p %LIBRARY_PREFIX%\examples\cudss  # [win]

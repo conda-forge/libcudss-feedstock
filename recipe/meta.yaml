@@ -17,10 +17,12 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://developer.download.nvidia.com/compute/cudss/redist/libcudss/{{ platform }}/libcudss-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}
-    sha256: b52dfec1ee10bf49c706dd36d4808e7fa02f3c8a85f1c2bb7e0da48dcae51cb0  # [aarch64 and (cuda_compiler_version or "").startswith("12")]
-    sha256: 64d77f5a3d2fafc99704da0c0e686d920265708358b9ced5755da713f3ff0620  # [linux64 and (cuda_compiler_version or "").startswith("12")]
-    sha256: d0801e78eab1be1240198e292bc496bb1804f2068975aaaf80ba31c3e400c625  # [win64   and (cuda_compiler_version or "").startswith("12")]
+  - url: https://developer.download.nvidia.com/compute/cudss/redist/libcudss/{{ platform }}/libcudss-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}  # [aarch64]
+    sha256: b52dfec1ee10bf49c706dd36d4808e7fa02f3c8a85f1c2bb7e0da48dcae51cb0  # [aarch64]
+  - url: https://developer.download.nvidia.com/compute/cudss/redist/libcudss/{{ platform }}/libcudss-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}  # [linux64]
+    sha256: 64d77f5a3d2fafc99704da0c0e686d920265708358b9ced5755da713f3ff0620  # [linux64]
+  - url: https://developer.download.nvidia.com/compute/cudss/redist/libcudss/{{ platform }}/libcudss-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}  # [win64]
+    sha256: d0801e78eab1be1240198e292bc496bb1804f2068975aaaf80ba31c3e400c625  # [win64]
   # Overwrite cudss-targets-release.cmake to correct broken paths
   - path: cudss-targets-release.cmake  # [win]
 
@@ -29,11 +31,11 @@ build:
   skip: true  # [(cuda_compiler_version in (None, "None", "11.8")) or (not (linux64 or aarch64 or win64))]
   script:  # [win]
     - md -p %LIBRARY_PREFIX%\examples\cudss  # [win]
-    - xcopy examples %LIBRARY_PREFIX%\examples\cudss /E /I /Y /V # [win]
-    - xcopy include %LIBRARY_INC% /E /I /Y /V # [win]
-    - xcopy lib %LIBRARY_LIB% /E /I /Y /V # [win]
-    - xcopy bin %LIBRARY_BIN% /E /I /Y /V # [win]
-    - xcopy cudss-targets-release.cmake %LIBRARY_LIB%\cmake\cudss\ /I /Y /V # [win]
+    - xcopy examples %LIBRARY_PREFIX%\examples\cudss /E /I /Y /V  # [win]
+    - xcopy include %LIBRARY_INC% /E /I /Y /V  # [win]
+    - xcopy lib %LIBRARY_LIB% /E /I /Y /V  # [win]
+    - xcopy bin %LIBRARY_BIN% /E /I /Y /V  # [win]
+    - xcopy cudss-targets-release.cmake %LIBRARY_LIB%\cmake\cudss\ /I /Y /V  # [win]
 
 requirements:
   build:
@@ -142,6 +144,8 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage("libcudss-commlayer-nccl" ~ somajor, exact=True) }}
+    test:
+      commands: []
     about:
       summary: >-
         The NCCL communications layer module for NVIDIA cuDSS
@@ -180,6 +184,8 @@ outputs:
     requirements:
       run:
         - {{ pin_subpackage("libcudss-commlayer-mpi" ~ somajor, exact=True) }}
+    test:
+      commands: []
     about:
       summary: >-
         The MPI communications layer module for NVIDIA cuDSS

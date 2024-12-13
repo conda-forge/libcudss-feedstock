@@ -249,7 +249,7 @@ outputs:
         This is a runtime package only. Developers should install libcudss-dev to build with
         cuDSS.
 
-# NOTE: Metadata inheritence from this section to the outputs is all or nothing. Only the
+# NOTE: Metadata inheritance from this section to the outputs is all or nothing. Only the
 # -dev package and the feedstock readme are inheriting this metadata.
 about:
   home: https://developer.nvidia.com/cudss

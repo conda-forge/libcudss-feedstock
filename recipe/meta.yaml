@@ -131,22 +131,7 @@ outputs:
         - if not exist %LIBRARY_LIB%\\cmake\\cudss\\cudss-config.cmake exit 1  # [win]
         - cmake ${CMAKE_ARGS} -GNinja test  # [build_platform == target_platform]
         - cmake --build .  # [build_platform == target_platform]
-    about:
-      summary: The NVIDIA cuDSS development package.
-      home: https://developer.nvidia.com/cudss
-      license: LicenseRef-NVIDIA-End-User-License-Agreement
-      license_file: LICENSE
-      license_url: https://docs.nvidia.com/cuda/cudss/license.html
-      description: >-
-        NVIDIA cuDSS is an optimized, first-generation GPU-accelerated Direct Sparse Solver
-        library for solving linear systems with sparse matrices. Direct Sparse Solvers are
-        an important part of numerical computing as they provide a general robust way of
-        solving large linear systems without and are capable of taking advantage of both
-        high compute throughput and memory bandwidth of the GPUs.
-
-        This is the development package; it contains headers, cmake, and link targets.
-        Examples are available in the libcudss-examples package.
-      doc_url: https://docs.nvidia.com/cuda/cudss/
+    # Metadata will be inherited from top-level
 
   - name: libcudss-examples
     build:
@@ -264,16 +249,14 @@ outputs:
         This is a runtime package only. Developers should install libcudss-dev to build with
         cuDSS.
 
-# NOTE: Metadata inheritence from this section to the outputs is all or nothing.
+# NOTE: Metadata inheritence from this section to the outputs is all or nothing. Only the
+# -dev package and the feedstock readme are inheriting this metadata.
 about:
   home: https://developer.nvidia.com/cudss
   license: LicenseRef-NVIDIA-End-User-License-Agreement
   license_file: LICENSE
   license_url: https://docs.nvidia.com/cuda/cudss/license.html
-  summary: >-
-    NVIDIA cuDSS is an optimized, first-generation
-    GPU-accelerated Direct Sparse Solver library for solving linear systems
-    with sparse matrices.
+  summary: The NVIDIA cuDSS development package.
   description: >-
     NVIDIA cuDSS is an optimized, first-generation
     GPU-accelerated Direct Sparse Solver library for solving linear systems

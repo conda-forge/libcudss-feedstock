@@ -11,7 +11,7 @@ Home: https://developer.nvidia.com/cudss
 
 Package license: [LicenseRef-NVIDIA-End-User-License-Agreement](https://docs.nvidia.com/cuda/cudss/license.html)
 
-Summary: NVIDIA cuDSS is an optimized, first-generation GPU-accelerated Direct Sparse Solver library for solving linear systems with sparse matrices.
+Summary: The NVIDIA cuDSS development package.
 
 Documentation: https://docs.nvidia.com/cuda/cudss/
 
@@ -22,36 +22,66 @@ About libcudss-commlayer-mpi0
 
 
 
-Package license: 
+Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
-Summary: The MPI communications layer module for NVIDIA cuDSS
+Summary: The NVIDIA cuDSS MPI runtime module.
+
+This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
 
 About libcudss-commlayer-nccl0
 ------------------------------
 
 
 
-Package license: 
+Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
-Summary: The NCCL communications layer module for NVIDIA cuDSS
+Summary: The NVIDIA cuDSS NCCL runtime module.
+
+This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
+
+About libcudss-examples
+-----------------------
+
+
+
+Package license: LicenseRef-NVIDIA-End-User-License-Agreement
+
+Summary: The NVIDIA cuDSS examples package.
+
+This package is examples only. Developers should install libcudss-dev to build with cuDSS.
+
+About libcudss0
+---------------
+
+
+
+Package license: LicenseRef-NVIDIA-End-User-License-Agreement
+
+Summary: The NVIDIA cuDSS runtime library.
+
+This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
 
 About libcudss-commlayer-mpi
 ----------------------------
 
 
 
-Package license: 
+Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
-Summary: The MPI communications layer module for NVIDIA cuDSS
+Summary: Install this package to enable MPI for cuDSS.
+
+This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
 
 About libcudss-commlayer-nccl
 -----------------------------
 
 
 
-Package license: 
+Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
-Summary: The NCCL communications layer module for NVIDIA cuDSS
+Summary: Install this package to enable NCCL for cuDSS.
+
+This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
 
 Current build status
 ====================

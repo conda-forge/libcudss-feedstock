@@ -80,6 +80,13 @@ outputs:
         - test -L $PREFIX/lib/libcudss.so.{{ somajor }}  # [linux]
         - test ! -f $PREFIX/lib/libcudss_static.a  # [linux]
         - if not exist %LIBRARY_BIN%\\cudss64_{{ somajor }}.dll exit 1  # [win]
+    about:
+      summary: The NVIDIA cuDSS runtime library.
+      license: LicenseRef-NVIDIA-End-User-License-Agreement
+      license_file: LICENSE
+      description: >-
+        This is a runtime package only. Developers should install libcudss-dev to build with
+        cuDSS.
 
   - name: libcudss-dev
     build:
@@ -124,6 +131,22 @@ outputs:
         - if not exist %LIBRARY_LIB%\\cmake\\cudss\\cudss-config.cmake exit 1  # [win]
         - cmake ${CMAKE_ARGS} -GNinja test  # [build_platform == target_platform]
         - cmake --build .  # [build_platform == target_platform]
+    about:
+      summary: The NVIDIA cuDSS development package.
+      home: https://developer.nvidia.com/cudss
+      license: LicenseRef-NVIDIA-End-User-License-Agreement
+      license_file: LICENSE
+      license_url: https://docs.nvidia.com/cuda/cudss/license.html
+      description: >-
+        NVIDIA cuDSS is an optimized, first-generation GPU-accelerated Direct Sparse Solver
+        library for solving linear systems with sparse matrices. Direct Sparse Solvers are
+        an important part of numerical computing as they provide a general robust way of
+        solving large linear systems without and are capable of taking advantage of both
+        high compute throughput and memory bandwidth of the GPUs.
+
+        This is the development package; it contains headers, cmake, and link targets.
+        Examples are available in the libcudss-examples package.
+      doc_url: https://docs.nvidia.com/cuda/cudss/
 
   - name: libcudss-examples
     build:
@@ -135,6 +158,13 @@ outputs:
       commands:
         - test -f $PREFIX/examples/cudss/cudss_simple.cpp  # [linux]
         - if not exist %LIBRARY_PREFIX%\\examples\\cudss\\cudss_simple.cpp exit 1  # [win]
+    about:
+      summary: The NVIDIA cuDSS examples package.
+      license: LicenseRef-NVIDIA-End-User-License-Agreement
+      license_file: LICENSE
+      description: >-
+        This package is examples only. Developers should install libcudss-dev to build with
+        cuDSS.
 
 # loadable modules; optional and only needed at runtime
 
@@ -147,8 +177,12 @@ outputs:
     test:
       commands: []
     about:
-      summary: >-
-        The NCCL communications layer module for NVIDIA cuDSS
+      summary: Install this package to enable NCCL for cuDSS.
+      license: LicenseRef-NVIDIA-End-User-License-Agreement
+      license_file: LICENSE
+      description: >-
+        This is a runtime package only. Developers should install libcudss-dev to build with
+        cuDSS.
 
   - name: libcudss-commlayer-nccl{{ somajor }}
     build:
@@ -175,8 +209,12 @@ outputs:
         - test -f $PREFIX/lib/libcudss_commlayer_nccl.so.{{ soversion }}  # [linux]
         - test -L $PREFIX/lib/libcudss_commlayer_nccl.so.{{ somajor }}  # [linux]
     about:
-      summary: >-
-        The NCCL communications layer module for NVIDIA cuDSS
+      summary: The NVIDIA cuDSS NCCL runtime module.
+      license: LicenseRef-NVIDIA-End-User-License-Agreement
+      license_file: LICENSE
+      description: >-
+        This is a runtime package only. Developers should install libcudss-dev to build with
+        cuDSS.
 
   - name: libcudss-commlayer-mpi
     build:
@@ -187,8 +225,12 @@ outputs:
     test:
       commands: []
     about:
-      summary: >-
-        The MPI communications layer module for NVIDIA cuDSS
+      summary: Install this package to enable MPI for cuDSS.
+      license: LicenseRef-NVIDIA-End-User-License-Agreement
+      license_file: LICENSE
+      description: >-
+        This is a runtime package only. Developers should install libcudss-dev to build with
+        cuDSS.
 
   - name: libcudss-commlayer-mpi{{ somajor }}
     build:
@@ -215,9 +257,14 @@ outputs:
         - test -f $PREFIX/lib/libcudss_commlayer_openmpi.so.{{ soversion }}  # [linux]
         - test -L $PREFIX/lib/libcudss_commlayer_openmpi.so.{{ somajor }}  # [linux]
     about:
-      summary: >-
-        The MPI communications layer module for NVIDIA cuDSS
+      summary: The NVIDIA cuDSS MPI runtime module.
+      license: LicenseRef-NVIDIA-End-User-License-Agreement
+      license_file: LICENSE
+      description: >-
+        This is a runtime package only. Developers should install libcudss-dev to build with
+        cuDSS.
 
+# NOTE: Metadata inheritence from this section to the outputs is all or nothing.
 about:
   home: https://developer.nvidia.com/cudss
   license: LicenseRef-NVIDIA-End-User-License-Agreement

@@ -27,7 +27,7 @@ source:
   - path: cudss-targets-release.cmake  # [win]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [(cuda_compiler_version in (None, "None", "11.8")) or (not (linux64 or aarch64 or win64))]
   script:  # [win]
     - md -p %LIBRARY_PREFIX%\examples\cudss  # [win]
@@ -207,7 +207,7 @@ outputs:
         # collect channel pinning
         - openmpi
         # constrain to version that we actually built with
-        - openmpi 4.1.0
+        - openmpi >=4.1.0,<6
       run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:

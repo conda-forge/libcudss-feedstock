@@ -166,8 +166,8 @@ outputs:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_file: LICENSE
       description: >-
-        This is a runtime package only. Developers should install libcudss-dev to build with
-        cuDSS.
+        This is a meta-package which enables an optional feature. Developers should install
+        libcudss-dev to build with cuDSS.
 
   - name: libcudss-commlayer-nccl{{ somajor }}
     build:
@@ -198,8 +198,8 @@ outputs:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_file: LICENSE
       description: >-
-        This is a runtime package only. Developers should install libcudss-dev to build with
-        cuDSS.
+        This is a runtime package only. Users should install the corresponding meta-package
+        instead. Developers should install libcudss-dev to build with cuDSS.
 
   - name: libcudss-commlayer-mpi
     build:
@@ -214,8 +214,8 @@ outputs:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_file: LICENSE
       description: >-
-        This is a runtime package only. Developers should install libcudss-dev to build with
-        cuDSS.
+        This is a meta-package which enables an optional feature. Developers should install
+        libcudss-dev to build with cuDSS.
 
   - name: libcudss-commlayer-mpi{{ somajor }}
     build:
@@ -246,8 +246,8 @@ outputs:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_file: LICENSE
       description: >-
-        This is a runtime package only. Developers should install libcudss-dev to build with
-        cuDSS.
+        This is a runtime package only. Users should install the corresponding meta-package
+        instead. Developers should install libcudss-dev to build with cuDSS.
 
 # NOTE: Metadata inheritance from this section to the outputs is all or nothing. Only the
 # -dev package and the feedstock readme are inheriting this metadata.

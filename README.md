@@ -26,7 +26,7 @@ Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
 Summary: The NVIDIA cuDSS MPI runtime module.
 
-This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
+This is a runtime package only. Users should install the corresponding meta-package instead. Developers should install libcudss-dev to build with cuDSS.
 
 About libcudss-commlayer-nccl0
 ------------------------------
@@ -37,7 +37,7 @@ Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
 Summary: The NVIDIA cuDSS NCCL runtime module.
 
-This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
+This is a runtime package only. Users should install the corresponding meta-package instead. Developers should install libcudss-dev to build with cuDSS.
 
 About libcudss-examples
 -----------------------
@@ -70,7 +70,7 @@ Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
 Summary: Install this package to enable MPI for cuDSS.
 
-This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
+This is a meta-package which enables an optional feature. Developers should install libcudss-dev to build with cuDSS.
 
 About libcudss-commlayer-nccl
 -----------------------------
@@ -81,7 +81,7 @@ Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
 Summary: Install this package to enable NCCL for cuDSS.
 
-This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
+This is a meta-package which enables an optional feature. Developers should install libcudss-dev to build with cuDSS.
 
 Current build status
 ====================
@@ -101,17 +101,17 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12</td>
+              <td>linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=24335&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libcudss-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libcudss-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12</td>
+              <td>linux_aarch64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=24335&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libcudss-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libcudss-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13" alt="variant">
                 </a>
               </td>
             </tr><tr>

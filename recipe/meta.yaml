@@ -47,7 +47,7 @@ requirements:
 
 outputs:
 
-  - name: libcudss{{ somajor }}
+  - name: libcudss
     build:
       ignore_run_exports_from:
         - {{ compiler('cuda') }}
@@ -133,43 +133,9 @@ outputs:
         - cmake --build .  # [build_platform == target_platform]
     # Metadata will be inherited from top-level
 
-  - name: libcudss-examples
-    build:
-      noarch: generic
-    files:
-      - examples/cudss  # [linux]
-      - Library/examples/cudss  # [win]
-    test:
-      commands:
-        - test -f $PREFIX/examples/cudss/cudss_simple.cpp  # [linux]
-        - if not exist %LIBRARY_PREFIX%\\examples\\cudss\\cudss_simple.cpp exit 1  # [win]
-    about:
-      summary: The NVIDIA cuDSS examples package.
-      license: LicenseRef-NVIDIA-End-User-License-Agreement
-      license_file: LICENSE
-      description: >-
-        This package is examples only. Developers should install libcudss-dev to build with
-        cuDSS.
-
 # loadable modules; optional and only needed at runtime
 
   - name: libcudss-commlayer-nccl
-    build:
-      skip: True  # [not linux]
-    requirements:
-      run:
-        - {{ pin_subpackage("libcudss-commlayer-nccl" ~ somajor, exact=True) }}
-    test:
-      commands: []
-    about:
-      summary: Install this package to enable NCCL for cuDSS.
-      license: LicenseRef-NVIDIA-End-User-License-Agreement
-      license_file: LICENSE
-      description: >-
-        This is a meta-package which enables an optional feature. Developers should install
-        libcudss-dev to build with cuDSS.
-
-  - name: libcudss-commlayer-nccl{{ somajor }}
     build:
       skip: True  # [not linux]
     files:
@@ -202,22 +168,6 @@ outputs:
         instead. Developers should install libcudss-dev to build with cuDSS.
 
   - name: libcudss-commlayer-mpi
-    build:
-      skip: True  # [not linux]
-    requirements:
-      run:
-        - {{ pin_subpackage("libcudss-commlayer-mpi" ~ somajor, exact=True) }}
-    test:
-      commands: []
-    about:
-      summary: Install this package to enable MPI for cuDSS.
-      license: LicenseRef-NVIDIA-End-User-License-Agreement
-      license_file: LICENSE
-      description: >-
-        This is a meta-package which enables an optional feature. Developers should install
-        libcudss-dev to build with cuDSS.
-
-  - name: libcudss-commlayer-mpi{{ somajor }}
     build:
       skip: True  # [not linux]
     files:

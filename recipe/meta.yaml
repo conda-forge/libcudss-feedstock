@@ -1,5 +1,6 @@
 
 {% set version = "0.5.0.16" %}
+{% set build_num = 2 %}
 {% set soversion = ".".join(version.split(".")[:3]) %}
 {% set somajor = version.split(".")[0] %}
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -25,7 +26,7 @@ source:
     sha256: f9e0394bc839870c7e01abea2cb433a9352adaa91146ec25cca5960905c2c72e  # [win64]
 
 build:
-  number: 0
+  number: "{{ build_num }}"
   skip: true  # [(cuda_compiler_version in (None, "None", "11.8")) or (not (linux64 or aarch64 or win64))]
   script:  # [win]
     - xcopy include %LIBRARY_INC% /E /I /Y /V  # [win]
@@ -69,9 +70,15 @@ outputs:
         - libcublas
       run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}
-        - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
+        - libcudss-commlayer-nccl ={{ version }}=*_{{ build_num }}  # [linux]
+        - libcudss-commlayer-mpi ={{ version }}=*_{{ build_num }}*   # [linux]
+        # Cannot pin exactly due to a potentially different build order
+        #- {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}
+        #- {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
     test:
+      requires:
+        - libcudss-commlayer-nccl ={{ soversion }}=*_{{ build_num }}  # [linux]
+        - libcudss-commlayer-mpi  ={{ soversion }}=*_{{ build_num }}  # [linux]
       commands:
         - test -f $PREFIX/lib/libcudss.so.{{ soversion }}                # [linux]
         - test -L $PREFIX/lib/libcudss.so.{{ somajor }}                  # [linux]

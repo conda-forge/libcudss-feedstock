@@ -17,47 +17,14 @@ Documentation: https://docs.nvidia.com/cuda/cudss/
 
 NVIDIA cuDSS is an optimized, first-generation GPU-accelerated Direct Sparse Solver library for solving linear systems with sparse matrices. Direct Sparse Solvers are an important part of numerical computing as they provide a general robust way of solving large linear systems without and are capable of taking advantage of both high compute throughput and memory bandwidth of the GPUs.
 
-About libcudss-commlayer-mpi0
------------------------------
+About libcudss
+--------------
 
 
 
 Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
-Summary: The NVIDIA cuDSS MPI runtime module.
-
-This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
-
-About libcudss-commlayer-nccl0
-------------------------------
-
-
-
-Package license: LicenseRef-NVIDIA-End-User-License-Agreement
-
-Summary: The NVIDIA cuDSS NCCL runtime module.
-
-This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
-
-About libcudss-examples
------------------------
-
-
-
-Package license: LicenseRef-NVIDIA-End-User-License-Agreement
-
-Summary: The NVIDIA cuDSS examples package.
-
-This package is examples only. Developers should install libcudss-dev to build with cuDSS.
-
-About libcudss0
----------------
-
-
-
-Package license: LicenseRef-NVIDIA-End-User-License-Agreement
-
-Summary: The NVIDIA cuDSS runtime library.
+Summary: The NVIDIA cuDSS runtime library (with a pre-built threading layer for OpenMP).
 
 This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
 
@@ -68,7 +35,7 @@ About libcudss-commlayer-mpi
 
 Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
-Summary: Install this package to enable MPI for cuDSS.
+Summary: Install this package to enable MPI for cuDSS
 
 This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
 
@@ -79,7 +46,7 @@ About libcudss-commlayer-nccl
 
 Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
-Summary: Install this package to enable NCCL for cuDSS.
+Summary: Install this package to enable NCCL for cuDSS
 
 This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
 
@@ -101,17 +68,17 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12</td>
+              <td>linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=24335&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libcudss-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libcudss-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12</td>
+              <td>linux_aarch64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=24335&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libcudss-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version12cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version12" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/libcudss-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_c_compiler_version13cuda_compilercuda-nvcccuda_compiler_version12.6cxx_compiler_version13" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -134,13 +101,10 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libcudss-green.svg)](https://anaconda.org/conda-forge/libcudss) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudss.svg)](https://anaconda.org/conda-forge/libcudss) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudss.svg)](https://anaconda.org/conda-forge/libcudss) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudss.svg)](https://anaconda.org/conda-forge/libcudss) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libcudss--commlayer--mpi-green.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-mpi) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudss-commlayer-mpi.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-mpi) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudss-commlayer-mpi.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-mpi) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudss-commlayer-mpi.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-mpi) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-libcudss--commlayer--mpi0-green.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-mpi0) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudss-commlayer-mpi0.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-mpi0) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudss-commlayer-mpi0.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-mpi0) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudss-commlayer-mpi0.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-mpi0) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libcudss--commlayer--nccl-green.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-nccl) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudss-commlayer-nccl.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-nccl) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudss-commlayer-nccl.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-nccl) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudss-commlayer-nccl.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-nccl) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-libcudss--commlayer--nccl0-green.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-nccl0) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudss-commlayer-nccl0.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-nccl0) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudss-commlayer-nccl0.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-nccl0) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudss-commlayer-nccl0.svg)](https://anaconda.org/conda-forge/libcudss-commlayer-nccl0) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libcudss--dev-green.svg)](https://anaconda.org/conda-forge/libcudss-dev) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudss-dev.svg)](https://anaconda.org/conda-forge/libcudss-dev) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudss-dev.svg)](https://anaconda.org/conda-forge/libcudss-dev) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudss-dev.svg)](https://anaconda.org/conda-forge/libcudss-dev) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-libcudss--examples-green.svg)](https://anaconda.org/conda-forge/libcudss-examples) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudss-examples.svg)](https://anaconda.org/conda-forge/libcudss-examples) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudss-examples.svg)](https://anaconda.org/conda-forge/libcudss-examples) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudss-examples.svg)](https://anaconda.org/conda-forge/libcudss-examples) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-libcudss0-green.svg)](https://anaconda.org/conda-forge/libcudss0) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcudss0.svg)](https://anaconda.org/conda-forge/libcudss0) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcudss0.svg)](https://anaconda.org/conda-forge/libcudss0) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcudss0.svg)](https://anaconda.org/conda-forge/libcudss0) |
 
 Installing libcudss
 ===================
@@ -152,41 +116,41 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `libcudss-commlayer-mpi, libcudss-commlayer-mpi0, libcudss-commlayer-nccl, libcudss-commlayer-nccl0, libcudss-dev, libcudss-examples, libcudss0` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libcudss, libcudss-commlayer-mpi, libcudss-commlayer-nccl, libcudss-dev` can be installed with `conda`:
 
 ```
-conda install libcudss-commlayer-mpi libcudss-commlayer-mpi0 libcudss-commlayer-nccl libcudss-commlayer-nccl0 libcudss-dev libcudss-examples libcudss0
-```
-
-or with `mamba`:
-
-```
-mamba install libcudss-commlayer-mpi libcudss-commlayer-mpi0 libcudss-commlayer-nccl libcudss-commlayer-nccl0 libcudss-dev libcudss-examples libcudss0
-```
-
-It is possible to list all of the versions of `libcudss-commlayer-mpi` available on your platform with `conda`:
-
-```
-conda search libcudss-commlayer-mpi --channel conda-forge
+conda install libcudss libcudss-commlayer-mpi libcudss-commlayer-nccl libcudss-dev
 ```
 
 or with `mamba`:
 
 ```
-mamba search libcudss-commlayer-mpi --channel conda-forge
+mamba install libcudss libcudss-commlayer-mpi libcudss-commlayer-nccl libcudss-dev
+```
+
+It is possible to list all of the versions of `libcudss` available on your platform with `conda`:
+
+```
+conda search libcudss --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search libcudss --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search libcudss-commlayer-mpi --channel conda-forge
+mamba repoquery search libcudss --channel conda-forge
 
-# List packages depending on `libcudss-commlayer-mpi`:
-mamba repoquery whoneeds libcudss-commlayer-mpi --channel conda-forge
+# List packages depending on `libcudss`:
+mamba repoquery whoneeds libcudss --channel conda-forge
 
-# List dependencies of `libcudss-commlayer-mpi`:
-mamba repoquery depends libcudss-commlayer-mpi --channel conda-forge
+# List dependencies of `libcudss`:
+mamba repoquery depends libcudss --channel conda-forge
 ```
 
 

@@ -57,6 +57,7 @@ outputs:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cuda') }}
+        - {{ compiler('cxx') }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ stdlib("c") }}
         - libgomp
@@ -66,8 +67,6 @@ outputs:
       run:
         - {{ pin_compatible('cuda-version', max_pin='x', min_pin='x') }}  # [cuda_compiler_version != "None"]
         - libcublas
-        - libstdcxx
-        #- {{ stdlib("cxx") }}
       run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}

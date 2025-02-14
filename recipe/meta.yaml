@@ -1,5 +1,5 @@
 
-{% set version = "0.4.0.2" %}
+{% set version = "0.5.0.16" %}
 {% set soversion = ".".join(version.split(".")[:3]) %}
 {% set somajor = version.split(".")[0] %}
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -18,24 +18,19 @@ package:
 
 source:
   - url: https://developer.download.nvidia.com/compute/cudss/redist/libcudss/{{ platform }}/libcudss-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}  # [aarch64]
-    sha256: b52dfec1ee10bf49c706dd36d4808e7fa02f3c8a85f1c2bb7e0da48dcae51cb0  # [aarch64]
+    sha256: cb59cfa26b3a4277c55ddc700ef65bffb5369d4afc2cdf08c20a9ae324bed664  # [aarch64]
   - url: https://developer.download.nvidia.com/compute/cudss/redist/libcudss/{{ platform }}/libcudss-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}  # [linux64]
-    sha256: 64d77f5a3d2fafc99704da0c0e686d920265708358b9ced5755da713f3ff0620  # [linux64]
+    sha256: 5245d2ba26a590839e2f1dd074f87e39ee5cc201c3b29245b35c7060d59c37a5  # [linux64]
   - url: https://developer.download.nvidia.com/compute/cudss/redist/libcudss/{{ platform }}/libcudss-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}  # [win64]
-    sha256: d0801e78eab1be1240198e292bc496bb1804f2068975aaaf80ba31c3e400c625  # [win64]
-  # Overwrite cudss-targets-release.cmake to correct broken paths
-  - path: cudss-targets-release.cmake  # [win]
+    sha256: f9e0394bc839870c7e01abea2cb433a9352adaa91146ec25cca5960905c2c72e  # [win64]
 
 build:
-  number: 2
+  number: 0
   skip: true  # [(cuda_compiler_version in (None, "None", "11.8")) or (not (linux64 or aarch64 or win64))]
   script:  # [win]
-    - md -p %LIBRARY_PREFIX%\examples\cudss  # [win]
-    - xcopy examples %LIBRARY_PREFIX%\examples\cudss /E /I /Y /V  # [win]
     - xcopy include %LIBRARY_INC% /E /I /Y /V  # [win]
     - xcopy lib %LIBRARY_LIB% /E /I /Y /V  # [win]
     - xcopy bin %LIBRARY_BIN% /E /I /Y /V  # [win]
-    - xcopy cudss-targets-release.cmake %LIBRARY_LIB%\cmake\cudss\ /I /Y /V  # [win]
 
 requirements:
   build:
@@ -44,26 +39,28 @@ requirements:
     - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
     - arm-variant * {{ arm_variant_type }}  # [aarch64]
+    - cf-nvidia-tools 1  # [linux]
 
 outputs:
 
-  - name: libcudss{{ somajor }}
+  - name: libcudss
     build:
       ignore_run_exports_from:
         - {{ compiler('cuda') }}
         - libcublas-dev
-      run_exports:
-        # Breaking changes every version until 1.0
-        - {{ pin_subpackage("libcudss" ~ somajor, max_pin="x.x.x") }}
     files:
-      - lib/libcudss.so.*  # [linux]
-      - Library/bin/cudss64_0.dll  # [win]
+      - lib/libcudss.so.*                      # [linux]
+      - lib/libcudss_mtlayer_*.so.*            # [linux]
+      - Library/bin/cudss64_{{ somajor }}.dll  # [win]
+      - Library/bin/cudss_mtlayer_*.dll        # [win]
     requirements:
       build:
         - {{ compiler('c') }}
         - {{ compiler('cuda') }}
+        - {{ compiler('cxx') }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ stdlib("c") }}
+        - libgomp
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - libcublas-dev
@@ -72,16 +69,19 @@ outputs:
         - libcublas
       run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - {{ pin_subpackage("libcudss-commlayer-nccl" ~ somajor, exact=True) }}
-        - {{ pin_subpackage("libcudss-commlayer-mpi" ~ somajor, exact=True) }}
+        - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}
+        - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
     test:
       commands:
-        - test -f $PREFIX/lib/libcudss.so.{{ soversion }}  # [linux]
-        - test -L $PREFIX/lib/libcudss.so.{{ somajor }}  # [linux]
-        - test ! -f $PREFIX/lib/libcudss_static.a  # [linux]
-        - if not exist %LIBRARY_BIN%\\cudss64_{{ somajor }}.dll exit 1  # [win]
+        - test -f $PREFIX/lib/libcudss.so.{{ soversion }}                # [linux]
+        - test -L $PREFIX/lib/libcudss.so.{{ somajor }}                  # [linux]
+        - test -f $PREFIX/lib/libcudss_mtlayer_gomp.so.{{ soversion }}   # [linux]
+        - test -L $PREFIX/lib/libcudss_mtlayer_gomp.so.{{ somajor }}     # [linux]
+        - test ! -f $PREFIX/lib/libcudss_static.a                        # [linux]
+        - if not exist %LIBRARY_BIN%\\cudss64_{{ somajor }}.dll exit 1   # [win]
+        - if not exist %LIBRARY_BIN%\\cudss_mtlayer_vcomp140.dll exit 1  # [win]
     about:
-      summary: The NVIDIA cuDSS runtime library.
+      summary: The NVIDIA cuDSS runtime library (with a pre-built threading layer for OpenMP).
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_file: LICENSE
       description: >-
@@ -91,7 +91,8 @@ outputs:
   - name: libcudss-dev
     build:
       run_exports:
-        - {{ pin_subpackage("libcudss" ~ somajor, max_pin="x.x.x") }}
+        # Breaking changes every version until 1.0
+        - {{ pin_subpackage("libcudss", max_pin="x.x.x") }}
     files:
       - lib/libcudss.so  # [linux]
       - include/cudss*  # [linux]
@@ -102,12 +103,10 @@ outputs:
       - Library/lib/cmake/cudss/*  # [win]
     requirements:
       host:
-        - {{ pin_subpackage("libcudss" ~ somajor, exact=True) }}
+        - {{ pin_subpackage("libcudss", exact=True) }}
       run:
-        - {{ pin_subpackage("libcudss" ~ somajor, exact=True) }}
+        - {{ pin_subpackage("libcudss", exact=True) }}
       run_constrained:
-        # Examples just run_constrained, so that downstream feedstocks don't get them by default
-        - {{ pin_subpackage("libcudss-examples", max_pin="x.x") }}
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
       files:
@@ -122,54 +121,22 @@ outputs:
       commands:
         - test -f $PREFIX/include/cudss.h  # [linux]
         - test -f $PREFIX/include/cudss_distributed_interface.h  # [linux]
+        - test -f $PREFIX/include/cudss_threading_interface.h  # [linux]
         - test -L $PREFIX/lib/libcudss.so  # [linux]
         - test ! -f $PREFIX/lib/libcudss_static.a  # [linux]
         - test ! -f $PREFIX/lib/cmake/cudss/cudss-static.targets.cmake  # [linux]
         - if not exist %LIBRARY_LIB%\\cudss.lib exit 1  # [win]
         - if not exist %LIBRARY_INC%\\cudss.h exit 1  # [win]
         - if not exist %LIBRARY_INC%\\cudss_distributed_interface.h exit 1  # [win]
+        - if not exist %LIBRARY_INC%\\cudss_threading_interface.h exit 1  # [win]
         - if not exist %LIBRARY_LIB%\\cmake\\cudss\\cudss-config.cmake exit 1  # [win]
         - cmake ${CMAKE_ARGS} -GNinja test  # [build_platform == target_platform]
         - cmake --build .  # [build_platform == target_platform]
     # Metadata will be inherited from top-level
 
-  - name: libcudss-examples
-    build:
-      noarch: generic
-    files:
-      - examples/cudss  # [linux]
-      - Library/examples/cudss  # [win]
-    test:
-      commands:
-        - test -f $PREFIX/examples/cudss/cudss_simple.cpp  # [linux]
-        - if not exist %LIBRARY_PREFIX%\\examples\\cudss\\cudss_simple.cpp exit 1  # [win]
-    about:
-      summary: The NVIDIA cuDSS examples package.
-      license: LicenseRef-NVIDIA-End-User-License-Agreement
-      license_file: LICENSE
-      description: >-
-        This package is examples only. Developers should install libcudss-dev to build with
-        cuDSS.
-
 # loadable modules; optional and only needed at runtime
 
   - name: libcudss-commlayer-nccl
-    build:
-      skip: True  # [not linux]
-    requirements:
-      run:
-        - {{ pin_subpackage("libcudss-commlayer-nccl" ~ somajor, exact=True) }}
-    test:
-      commands: []
-    about:
-      summary: Install this package to enable NCCL for cuDSS.
-      license: LicenseRef-NVIDIA-End-User-License-Agreement
-      license_file: LICENSE
-      description: >-
-        This is a meta-package which enables an optional feature. Developers should install
-        libcudss-dev to build with cuDSS.
-
-  - name: libcudss-commlayer-nccl{{ somajor }}
     build:
       skip: True  # [not linux]
     files:
@@ -194,30 +161,14 @@ outputs:
         - test -f $PREFIX/lib/libcudss_commlayer_nccl.so.{{ soversion }}  # [linux]
         - test -L $PREFIX/lib/libcudss_commlayer_nccl.so.{{ somajor }}  # [linux]
     about:
-      summary: The NVIDIA cuDSS NCCL runtime module.
+      summary: Install this package to enable NCCL for cuDSS
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_file: LICENSE
       description: >-
-        This is a runtime package only. Users should install the corresponding meta-package
-        instead. Developers should install libcudss-dev to build with cuDSS.
+        This is a runtime package only. Developers should install libcudss-dev to build with
+        cuDSS.
 
   - name: libcudss-commlayer-mpi
-    build:
-      skip: True  # [not linux]
-    requirements:
-      run:
-        - {{ pin_subpackage("libcudss-commlayer-mpi" ~ somajor, exact=True) }}
-    test:
-      commands: []
-    about:
-      summary: Install this package to enable MPI for cuDSS.
-      license: LicenseRef-NVIDIA-End-User-License-Agreement
-      license_file: LICENSE
-      description: >-
-        This is a meta-package which enables an optional feature. Developers should install
-        libcudss-dev to build with cuDSS.
-
-  - name: libcudss-commlayer-mpi{{ somajor }}
     build:
       skip: True  # [not linux]
     files:
@@ -242,12 +193,12 @@ outputs:
         - test -f $PREFIX/lib/libcudss_commlayer_openmpi.so.{{ soversion }}  # [linux]
         - test -L $PREFIX/lib/libcudss_commlayer_openmpi.so.{{ somajor }}  # [linux]
     about:
-      summary: The NVIDIA cuDSS MPI runtime module.
+      summary: Install this package to enable MPI for cuDSS
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_file: LICENSE
       description: >-
-        This is a runtime package only. Users should install the corresponding meta-package
-        instead. Developers should install libcudss-dev to build with cuDSS.
+        This is a runtime package only. Developers should install libcudss-dev to build with
+        cuDSS.
 
 # NOTE: Metadata inheritance from this section to the outputs is all or nothing. Only the
 # -dev package and the feedstock readme are inheriting this metadata.

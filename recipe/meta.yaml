@@ -77,8 +77,8 @@ outputs:
         #- {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
     test:
       requires:
-        - libcudss-commlayer-nccl ={{ soversion }}=*_{{ build_num }}  # [linux]
-        - libcudss-commlayer-mpi  ={{ soversion }}=*_{{ build_num }}  # [linux]
+        - libcudss-commlayer-nccl
+        - libcudss-commlayer-mpi
       commands:
         - test -f $PREFIX/lib/libcudss.so.{{ soversion }}                # [linux]
         - test -L $PREFIX/lib/libcudss.so.{{ somajor }}                  # [linux]

@@ -1,6 +1,6 @@
 
 {% set version = "0.5.0.16" %}
-{% set build_num = 2 %}
+{% set build_num = 1 %}
 {% set soversion = ".".join(version.split(".")[:3]) %}
 {% set somajor = version.split(".")[0] %}
 {% set platform = "linux-sbsa" %}  # [aarch64]

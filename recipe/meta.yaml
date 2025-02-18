@@ -65,16 +65,15 @@ outputs:
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - libcublas-dev
+        - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}
+        - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
       run:
         - {{ pin_compatible('cuda-version', max_pin='x', min_pin='x') }}  # [cuda_compiler_version != "None"]
         - libcublas
       run_constrained:
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
-        - libcudss-commlayer-nccl ={{ version }}=*_{{ build_num }}  # [linux]
-        - libcudss-commlayer-mpi ={{ version }}=*_{{ build_num }}*   # [linux]
-        # Cannot pin exactly due to a potentially different build order
-        #- {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}
-        #- {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
+        - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}
+        - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
     test:
       requires:
         - libcudss-commlayer-nccl

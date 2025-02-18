@@ -65,8 +65,8 @@ outputs:
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - libcublas-dev
-        - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}
-        - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
+        - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}  # [linux]
+        - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}  # [linux]
       run:
         - {{ pin_compatible('cuda-version', max_pin='x', min_pin='x') }}  # [cuda_compiler_version != "None"]
         - libcublas
@@ -76,8 +76,8 @@ outputs:
         - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
     test:
       requires:
-        - libcudss-commlayer-nccl
-        - libcudss-commlayer-mpi
+        - libcudss-commlayer-nccl  # [linux]
+        - libcudss-commlayer-mpi  # [linux]
       commands:
         - test -f $PREFIX/lib/libcudss.so.{{ soversion }}                # [linux]
         - test -L $PREFIX/lib/libcudss.so.{{ somajor }}                  # [linux]

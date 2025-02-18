@@ -17,17 +17,6 @@ Documentation: https://docs.nvidia.com/cuda/cudss/
 
 NVIDIA cuDSS is an optimized, first-generation GPU-accelerated Direct Sparse Solver library for solving linear systems with sparse matrices. Direct Sparse Solvers are an important part of numerical computing as they provide a general robust way of solving large linear systems without and are capable of taking advantage of both high compute throughput and memory bandwidth of the GPUs.
 
-About libcudss
---------------
-
-
-
-Package license: LicenseRef-NVIDIA-End-User-License-Agreement
-
-Summary: The NVIDIA cuDSS runtime library (with a pre-built threading layer for OpenMP).
-
-This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
-
 About libcudss-commlayer-mpi
 ----------------------------
 
@@ -47,6 +36,17 @@ About libcudss-commlayer-nccl
 Package license: LicenseRef-NVIDIA-End-User-License-Agreement
 
 Summary: Install this package to enable NCCL for cuDSS
+
+This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
+
+About libcudss
+--------------
+
+
+
+Package license: LicenseRef-NVIDIA-End-User-License-Agreement
+
+Summary: The NVIDIA cuDSS runtime library (with a pre-built threading layer for OpenMP).
 
 This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
 

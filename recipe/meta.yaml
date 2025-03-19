@@ -1,4 +1,3 @@
-
 {% set version = "0.5.0.16" %}
 {% set build_num = 1 %}
 {% set soversion = ".".join(version.split(".")[:3]) %}
@@ -28,7 +27,7 @@ source:
 build:
   number: "{{ build_num }}"
   skip: true  # [(cuda_compiler_version in (None, "None", "11.8")) or (not (linux64 or aarch64 or win64))]
-  script:  # [win]
+  script:   # [win]
     - xcopy include %LIBRARY_INC% /E /I /Y /V  # [win]
     - xcopy lib %LIBRARY_LIB% /E /I /Y /V  # [win]
     - xcopy bin %LIBRARY_BIN% /E /I /Y /V  # [win]
@@ -91,8 +90,7 @@ outputs:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_file: LICENSE
       description: >-
-        This is a runtime package only. Developers should install libcudss-dev to build with
-        cuDSS.
+        This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
 
   - name: libcudss-dev
     build:
@@ -117,7 +115,7 @@ outputs:
     test:
       files:
         - test
-      requires:  # [build_platform == target_platform]
+      requires:   # [build_platform == target_platform]
         - {{ compiler("c") }}  # [build_platform == target_platform]
         - {{ compiler("cxx") }}  # [build_platform == target_platform]
         - {{ compiler('cuda') }}  # [build_platform == target_platform]
@@ -144,7 +142,7 @@ outputs:
 
   - name: libcudss-commlayer-nccl
     build:
-      skip: True  # [not linux]
+      skip: true  # [not linux]
     files:
       - lib/libcudss_commlayer_nccl.so.*  # [linux]
     requirements:
@@ -171,12 +169,11 @@ outputs:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_file: LICENSE
       description: >-
-        This is a runtime package only. Developers should install libcudss-dev to build with
-        cuDSS.
+        This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
 
   - name: libcudss-commlayer-mpi
     build:
-      skip: True  # [not linux]
+      skip: true  # [not linux]
     files:
       - lib/libcudss_commlayer_openmpi.so.*  # [linux]
     requirements:
@@ -203,8 +200,7 @@ outputs:
       license: LicenseRef-NVIDIA-End-User-License-Agreement
       license_file: LICENSE
       description: >-
-        This is a runtime package only. Developers should install libcudss-dev to build with
-        cuDSS.
+        This is a runtime package only. Developers should install libcudss-dev to build with cuDSS.
 
 # NOTE: Metadata inheritance from this section to the outputs is all or nothing. Only the
 # -dev package and the feedstock readme are inheriting this metadata.
@@ -215,12 +211,8 @@ about:
   license_url: https://docs.nvidia.com/cuda/cudss/license.html
   summary: The NVIDIA cuDSS development package.
   description: >-
-    NVIDIA cuDSS is an optimized, first-generation
-    GPU-accelerated Direct Sparse Solver library for solving linear systems
-    with sparse matrices. Direct Sparse Solvers are an important part
-    of numerical computing as they provide a general robust way of solving large
-    linear systems without and are capable of taking advantage of both high compute
-    throughput and memory bandwidth of the GPUs.
+    NVIDIA cuDSS is an optimized, first-generation GPU-accelerated Direct Sparse Solver library for solving linear systems with sparse matrices. Direct Sparse Solvers are an important part of numerical computing as they provide a general robust way of solving large linear systems without and are capable of taking advantage
+    of both high compute throughput and memory bandwidth of the GPUs.
   doc_url: https://docs.nvidia.com/cuda/cudss/
 
 extra:

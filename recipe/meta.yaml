@@ -1,5 +1,5 @@
-{% set version = "0.5.0.16" %}
-{% set build_num = 1 %}
+{% set version = "0.6.0.5" %}
+{% set build_num = 0 %}
 {% set soversion = ".".join(version.split(".")[:3]) %}
 {% set somajor = version.split(".")[0] %}
 {% set platform = "linux-sbsa" %}  # [aarch64]
@@ -18,11 +18,11 @@ package:
 
 source:
   - url: https://developer.download.nvidia.com/compute/cudss/redist/libcudss/{{ platform }}/libcudss-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}  # [aarch64]
-    sha256: cb59cfa26b3a4277c55ddc700ef65bffb5369d4afc2cdf08c20a9ae324bed664  # [aarch64]
+    sha256: b56cd0841c543bb81b2665063967f56cf3a3a22a445ddf1642c7f765f2059b42  # [aarch64]
   - url: https://developer.download.nvidia.com/compute/cudss/redist/libcudss/{{ platform }}/libcudss-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}  # [linux64]
-    sha256: 5245d2ba26a590839e2f1dd074f87e39ee5cc201c3b29245b35c7060d59c37a5  # [linux64]
+    sha256: 159ce1d4e3e4bba13b0bd15cf943e44b869c53b7a94f9bac980768c927f02e75  # [linux64]
   - url: https://developer.download.nvidia.com/compute/cudss/redist/libcudss/{{ platform }}/libcudss-{{ platform }}-{{ version }}_cuda{{ cuda_major }}-archive.{{ extension }}  # [win64]
-    sha256: f9e0394bc839870c7e01abea2cb433a9352adaa91146ec25cca5960905c2c72e  # [win64]
+    sha256: 45319317d9f67fecc9af7e5cf162cb46111f5d35b06871c147fa8f030d7cecc5  # [win64]
 
 build:
   number: "{{ build_num }}"

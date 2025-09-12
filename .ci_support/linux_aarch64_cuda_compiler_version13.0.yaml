@@ -1,3 +1,5 @@
+arm_variant_type:
+- sbsa
 c_compiler:
 - gcc
 c_compiler_version:
@@ -15,7 +17,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- '12.9'
+- '13.0'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -27,7 +29,7 @@ nccl:
 openmpi:
 - '5'
 target_platform:
-- linux-64
+- linux-aarch64
 xz:
 - '5'
 zip_keys:

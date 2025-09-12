@@ -11,6 +11,8 @@ __migrator:
     - cuda_compiler_stub
   check_solvable: false
   primary_key: cuda_compiler_version
+  # needs manual override to pick newer c_stdlib_version
+  use_local: true
   ordering:
     cuda_compiler_version:
       - 12.4
@@ -40,6 +42,9 @@ __migrator:
     these variables in their build script.
     
     ref: https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#new-features
+
+c_stdlib_version:              # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
+  - 2.28                       # [(linux and (x86_64 or aarch64)) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
 
 cuda_compiler_version:         # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]
   - 12.9                       # [((linux and (x86_64 or aarch64)) or win64) and os.environ.get("CF_CUDA_ENABLED", "False") == "True"]

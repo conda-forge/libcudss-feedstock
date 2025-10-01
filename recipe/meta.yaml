@@ -41,7 +41,6 @@ requirements:
     - {{ compiler('cuda') }}
     - {{ compiler('cxx') }}
     - {{ stdlib("c") }}
-    - arm-variant * {{ arm_variant_type }}  # [aarch64]
     - cf-nvidia-tools 1  # [linux]
 
 outputs:
@@ -49,8 +48,9 @@ outputs:
   - name: libcudss
     build:
       ignore_run_exports_from:
-        - {{ compiler('cuda') }}
         - libcublas-dev
+      ignore_run_exports:
+        - cuda-version
     files:
       - lib/libcudss.so.*                      # [linux]
       - lib/libcudss_mtlayer_*.so.*            # [linux]
@@ -61,7 +61,6 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cuda') }}
         - {{ compiler('cxx') }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ stdlib("c") }}
         - libgomp
       host:
@@ -74,7 +73,6 @@ outputs:
         - libcublas
       run_constrained:
         - libcudss0 <0.0.0a0
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}
         - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
     test:
@@ -115,7 +113,6 @@ outputs:
       run:
         - {{ pin_subpackage("libcudss", exact=True) }}
       run_constrained:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
       files:
         - test
@@ -154,16 +151,10 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ stdlib("c") }}
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
-        # collect channel pinnings
         - nccl
-        # constrain to version that we actually built with
-        - nccl 2.21.5
-      run_constrained:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
       commands:
         - test -f $PREFIX/lib/libcudss_commlayer_nccl.so.{{ soversion }}  # [linux]
@@ -185,7 +176,6 @@ outputs:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ stdlib("c") }}
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
@@ -193,8 +183,6 @@ outputs:
         - openmpi
         # constrain to version that we actually built with
         - openmpi >=4.1.0,<6
-      run_constrained:
-        - arm-variant * {{ arm_variant_type }}  # [aarch64]
     test:
       commands:
         - test -f $PREFIX/lib/libcudss_commlayer_openmpi.so.{{ soversion }}  # [linux]

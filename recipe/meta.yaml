@@ -70,6 +70,7 @@ outputs:
         - {{ pin_compatible('cuda-version', max_pin='x', min_pin='x') }}  # [cuda_compiler_version != "None"]
         - libcublas
       run_constrained:
+        - libcudss0 <0.0.0a0
         - arm-variant * {{ arm_variant_type }}  # [aarch64]
         - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}
         - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
@@ -216,6 +217,8 @@ about:
   doc_url: https://docs.nvidia.com/cuda/cudss/
 
 extra:
+  compute-subdir: cudss
+  redist-json-name: libcudss
   recipe-maintainers:
     - conda-forge/cuda
     - kvoronin

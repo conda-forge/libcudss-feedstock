@@ -28,7 +28,7 @@ source:
     sha256: "c33768ac50caa36103facfec21a32b2c65ed1f1f085eaf153091dcaf734fdfc6"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "tegra"]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [(cuda_compiler_version in (None, "None", "11.8")) or (not (linux64 or aarch64 or win64))]
   script:   # [win]
     - xcopy include %LIBRARY_INC% /E /I /Y /V  # [win]
@@ -116,13 +116,13 @@ outputs:
     test:
       files:
         - test
-      requires:   # [build_platform == target_platform]
-        - {{ compiler("c") }}  # [build_platform == target_platform]
-        - {{ compiler("cxx") }}  # [build_platform == target_platform]
-        - {{ compiler('cuda') }}  # [build_platform == target_platform]
-        - {{ stdlib("c") }}  # [build_platform == target_platform]
-        - cmake  # [build_platform == target_platform]
-        - ninja  # [build_platform == target_platform]
+      requires:
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
+        - {{ compiler('cuda') }}
+        - {{ stdlib("c") }}
+        - cmake
+        - ninja
       commands:
         - test -f $PREFIX/include/cudss.h  # [linux]
         - test -f $PREFIX/include/cudss_distributed_interface.h  # [linux]
@@ -135,8 +135,8 @@ outputs:
         - if not exist %LIBRARY_INC%\\cudss_distributed_interface.h exit 1  # [win]
         - if not exist %LIBRARY_INC%\\cudss_threading_interface.h exit 1  # [win]
         - if not exist %LIBRARY_LIB%\\cmake\\cudss\\cudss-config.cmake exit 1  # [win]
-        - cmake ${CMAKE_ARGS} -GNinja test  # [build_platform == target_platform]
-        - cmake --build .  # [build_platform == target_platform]
+        - cmake ${CMAKE_ARGS} -GNinja test
+        - cmake --build .
     # Metadata will be inherited from top-level
 
 # loadable modules; optional and only needed at runtime

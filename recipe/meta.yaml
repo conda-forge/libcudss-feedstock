@@ -67,8 +67,8 @@ outputs:
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - libcublas-dev
-        - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}  # [linux]
-        - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}  # [linux]
+        - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}  # [linux and not (linux and aarch64 and arm_variant_type == "tegra")]
+        - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}  # [linux and not (linux and aarch64 and arm_variant_type == "tegra")]
       run:
         - {{ pin_compatible('cuda-version', max_pin='x', min_pin='x') }}  # [cuda_compiler_version != "None"]
         - libcublas
@@ -78,8 +78,8 @@ outputs:
         - {{ pin_subpackage("libcudss-commlayer-mpi", exact=True) }}
     test:
       requires:
-        - libcudss-commlayer-nccl  # [linux]
-        - libcudss-commlayer-mpi  # [linux]
+        - libcudss-commlayer-nccl  # [linux and not (linux and aarch64 and arm_variant_type == "tegra")]
+        - libcudss-commlayer-mpi  # [linux and not (linux and aarch64 and arm_variant_type == "tegra")]
       commands:
         - test -f $PREFIX/lib/libcudss.so.{{ soversion }}                # [linux]
         - test -L $PREFIX/lib/libcudss.so.{{ somajor }}                  # [linux]
@@ -145,7 +145,7 @@ outputs:
 
   - name: libcudss-commlayer-nccl
     build:
-      skip: true  # [not linux]
+      skip: true  # [not linux or (linux and aarch64 and arm_variant_type == "tegra")]
     files:
       - lib/libcudss_commlayer_nccl.so.*  # [linux]
     requirements:
@@ -171,7 +171,7 @@ outputs:
 
   - name: libcudss-commlayer-mpi
     build:
-      skip: true  # [not linux]
+      skip: true  # [not linux or (linux and aarch64 and arm_variant_type == "tegra")]
     files:
       - lib/libcudss_commlayer_openmpi.so.*  # [linux]
     requirements:

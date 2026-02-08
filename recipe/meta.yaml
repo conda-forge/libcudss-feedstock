@@ -63,6 +63,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
         - libgomp
+        - vcomp14  # [win]
         - arm-variant * {{ arm_variant_type }}  # [linux and aarch64 and cuda_compiler_version != "None"]
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]

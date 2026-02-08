@@ -6,6 +6,7 @@ package:
   name: libcudss-split
   version: {{ version }}
 
+{% set arm_variant_type = arm_variant_type | default("sbsa") %}
 {% set cuda_compiler_version = cuda_compiler_version | default("None") %}
 
 source:
@@ -109,6 +110,7 @@ outputs:
       - Library/lib/cmake/cudss/*  # [win]
     requirements:
       host:
+        - arm-variant * {{ arm_variant_type }}  # [linux and aarch64 and cuda_compiler_version != "None"]
         - {{ pin_subpackage("libcudss", exact=True) }}
       run:
         - {{ pin_subpackage("libcudss", exact=True) }}
@@ -152,6 +154,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
+        - arm-variant * {{ arm_variant_type }}  # [linux and aarch64 and cuda_compiler_version != "None"]
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - nccl
@@ -177,6 +180,7 @@ outputs:
         - {{ compiler('cxx') }}
         - {{ compiler('cuda') }}
         - {{ stdlib("c") }}
+        - arm-variant * {{ arm_variant_type }}  # [linux and aarch64 and cuda_compiler_version != "None"]
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         # collect channel pinning

@@ -6,7 +6,6 @@ package:
   name: libcudss-split
   version: {{ version }}
 
-{% set arm_variant_type = arm_variant_type | default("sbsa") %}
 {% set cuda_compiler_version = cuda_compiler_version | default("None") %}
 
 source:

@@ -62,10 +62,10 @@ outputs:
         - {{ compiler('cuda') }}
         - {{ compiler('cxx') }}
         - {{ stdlib("c") }}
-        - libgomp
-        - vcomp14  # [win]
         - arm-variant * {{ arm_variant_type }}  # [linux and aarch64 and cuda_compiler_version != "None"]
       host:
+        - libgomp  # [linux]
+        - vcomp14  # [win]
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - libcublas-dev
         - {{ pin_subpackage("libcudss-commlayer-nccl", exact=True) }}  # [linux and not (linux and aarch64 and arm_variant_type == "tegra")]

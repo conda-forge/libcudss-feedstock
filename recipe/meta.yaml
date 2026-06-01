@@ -1,34 +1,31 @@
-{% set version = "0.7.1.4" %}
+{% set version = "0.8.0.10" %}
 {% set soversion = ".".join(version.split(".")[:3]) %}
 {% set somajor = version.split(".")[0] %}
+{% set arm_variant_type = arm_variant_type | default("sbsa") %}
+{% set cuda_compiler_version = cuda_compiler_version | default("None") %}
 
 package:
   name: libcudss-split
   version: {{ version }}
 
-{% set arm_variant_type = arm_variant_type | default("sbsa") %}
-{% set cuda_compiler_version = cuda_compiler_version | default("None") %}
-
 source:
   - url: "https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-x86_64/libcudss-linux-x86_64-{{ version }}_cuda12-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
-    sha256: "946571d9ea164f948e402dd97a14541cb90fbec800336cfa7ae644af5937632f"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
+    sha256: "29716a05c64b28531309afcb7a9dd5044081a43197e72bdd0fbf29e9b4ee4707"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("12")]
   - url: "https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-x86_64/libcudss-linux-x86_64-{{ version }}_cuda13-archive.tar.xz"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
-    sha256: "84b34ebe7fad40ec10f2aab2957a63b6070bd8ce16e3ada3e6bcac7317256347"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
+    sha256: "ba18f5fd80dcbbe905d158caac5b3061d848442bb5abd477b5f296b4257a4937"  # [linux and x86_64 and (cuda_compiler_version or "").startswith("13")]
   - url: "https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-sbsa/libcudss-linux-sbsa-{{ version }}_cuda12-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
-    sha256: "a4ddd47ad711243bbea0da2d6520799595cc8d79aa740927e0855c0b8cb69cf8"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
+    sha256: "949426015c986897df7677435b450d2740e8849d16b07cdc13db27ea32ebb18b"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "sbsa"]
   - url: "https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-sbsa/libcudss-linux-sbsa-{{ version }}_cuda13-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
-    sha256: "de8295cb6773992bd1ca7e2ad93caae1fd18eba39175f0101b85d53abd3e0179"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
+    sha256: "c5fe7e5796792e10c3c5971bbb169ab3040ba61fe6fc99bdcbc02cf0f1ed9409"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "sbsa"]
   - url: "https://developer.download.nvidia.com/compute/cudss/redist/libcudss/windows-x86_64/libcudss-windows-x86_64-{{ version }}_cuda12-archive.zip"  # [win and x86_64 and (cuda_compiler_version or "").startswith("12")]
-    sha256: "b27a8af56a66ea4a15dadb6f3d4c3f8ce3acdc987d911f99b56801643b99528a"  # [win and x86_64 and (cuda_compiler_version or "").startswith("12")]
+    sha256: "33815263ee6e75596ba65dc609d57c3140e9eeed67ac1673f3763ec9c00e3e8b"  # [win and x86_64 and (cuda_compiler_version or "").startswith("12")]
   - url: "https://developer.download.nvidia.com/compute/cudss/redist/libcudss/windows-x86_64/libcudss-windows-x86_64-{{ version }}_cuda13-archive.zip"  # [win and x86_64 and (cuda_compiler_version or "").startswith("13")]
-    sha256: "545cd15505d7c3b6e3f2af5209ea5be33e764a92194dc9d05fa8d50a1320a86a"  # [win and x86_64 and (cuda_compiler_version or "").startswith("13")]
+    sha256: "66d085917ba2aba0c61dd0cfde0ae284df9813709f60c4cd215c47f8929eb780"  # [win and x86_64 and (cuda_compiler_version or "").startswith("13")]
   - url: "https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-aarch64/libcudss-linux-aarch64-{{ version }}_cuda12-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "tegra"]
-    sha256: "f283c31b6badf4a5277014295705eac8e6e28f27de30d746719ea1cef7a750b8"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "tegra"]
-  - url: "https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-aarch64/libcudss-linux-aarch64-{{ version }}_cuda13-archive.tar.xz"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "tegra"]
-    sha256: "4085361899eaf08f6b707321b33a2d5263ac986015527bef8e500f2c102f0258"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("13") and arm_variant_type == "tegra"]
+    sha256: "11cf97c8cecf3a651bab1890894c8b8793666a17ad3002104e573efa564af231"  # [linux and aarch64 and (cuda_compiler_version or "").startswith("12") and arm_variant_type == "tegra"]
 
 build:
-  number: 1
+  number: 0
   skip: true  # [(cuda_compiler_version in (None, "None", "11.8")) or (not (linux64 or aarch64 or win64))]
   script:   # [win]
     - xcopy include %LIBRARY_INC% /E /I /Y /V  # [win]
@@ -88,7 +85,7 @@ outputs:
         - test -L $PREFIX/lib/libcudss_mtlayer_gomp.so.{{ somajor }}     # [linux]
         - test ! -f $PREFIX/lib/libcudss_static.a                        # [linux]
         - if not exist %LIBRARY_BIN%\\cudss64_{{ somajor }}.dll exit 1   # [win]
-        - if not exist %LIBRARY_BIN%\\cudss_mtlayer_vcomp140.dll exit 1  # [win]
+        - if not exist %LIBRARY_BIN%\\cudss_mtlayer_vcomp14064_0.dll exit 1  # [win]
     about:
       summary: The NVIDIA cuDSS runtime library (with a pre-built threading layer for OpenMP).
       license: LicenseRef-NVIDIA-End-User-License-Agreement
@@ -128,6 +125,7 @@ outputs:
         - ninja
       commands:
         - test -f $PREFIX/include/cudss.h  # [linux]
+        - test -f $PREFIX/include/cudss_data_types.h  # [linux]
         - test -f $PREFIX/include/cudss_distributed_interface.h  # [linux]
         - test -f $PREFIX/include/cudss_threading_interface.h  # [linux]
         - test -L $PREFIX/lib/libcudss.so  # [linux]
@@ -136,6 +134,7 @@ outputs:
         - if not exist %LIBRARY_LIB%\\cudss.lib exit 1  # [win]
         - if not exist %LIBRARY_INC%\\cudss.h exit 1  # [win]
         - if not exist %LIBRARY_INC%\\cudss_distributed_interface.h exit 1  # [win]
+        - if not exist %LIBRARY_INC%\\cudss_data_types.h exit 1  # [win]
         - if not exist %LIBRARY_INC%\\cudss_threading_interface.h exit 1  # [win]
         - if not exist %LIBRARY_LIB%\\cmake\\cudss\\cudss-config.cmake exit 1  # [win]
         - cmake ${CMAKE_ARGS} -GNinja test
@@ -159,6 +158,10 @@ outputs:
       host:
         - cuda-version {{ cuda_compiler_version }}  # [cuda_compiler_version != "None"]
         - nccl
+        # collect channel pinning
+        - openmpi
+        # constrain to version that we actually built with
+        - openmpi >=4.1.0,<6
     test:
       commands:
         - test -f $PREFIX/lib/libcudss_commlayer_nccl.so.{{ soversion }}  # [linux]

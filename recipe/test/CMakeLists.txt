@@ -13,5 +13,14 @@ target_link_libraries(c_all_headers PUBLIC ${ALL_TARGETS})
 add_executable(cxx_all_headers all_headers.cxx)
 target_link_libraries(cxx_all_headers PUBLIC ${ALL_TARGETS})
 
+# Set the C standard to C11 to get Alignas support on MSVC (for extended precision data type)
+if (WIN32)
+    set_target_properties(c_all_headers PROPERTIES
+        C_STANDARD 11
+        C_STANDARD_REQUIRED ON
+        C_EXTENSIONS OFF
+    )
+endif()
+
 include(GNUInstallDirs)
 install(TARGETS c_all_headers cxx_all_headers RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
